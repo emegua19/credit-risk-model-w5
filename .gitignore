@@ -1,0 +1,12 @@
+# Ignore data directories
+data/
+# Ignore Python cache and virtual environments
+__pycache__/
+*.pyc
+venv/
+.venv
+.env
+# Ignore Jupyter notebook checkpoints
+*.ipynb_checkpoints
+# Ignore MLflow artifacts
+mlruns/
