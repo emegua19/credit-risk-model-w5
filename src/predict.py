@@ -14,8 +14,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 def setup_environment():
     """Create directory for predictions and set MLflow tracking URI."""
     os.makedirs('results', exist_ok=True)
-    mlflow.set_tracking_uri("file:../mlruns")
-    logging.info("Setup complete. MLflow tracking set to ../mlruns, predictions will be saved to results/.")
+    mlflow.set_tracking_uri("file:mlruns")
+    logging.info("Setup complete. MLflow tracking set to mlruns, predictions will be saved to results/.")
 
 # Sub-task: Load the processed dataset
 # Purpose: Read the input dataset for predictions (e.g., processed transactions).
@@ -61,7 +61,7 @@ def prepare_data(df, target_col='is_high_risk'):
 
 # Sub-task: Load the trained model
 # Purpose: Load the best registered model from MLflow for predictions.
-def load_model(model_name='best_model_GradientBoosting', run_id='<run_id>'):
+def load_model(model_name='best_model_GradientBoosting', run_id='d7912c083a16407fbe6faf6084698758'):
     """Load the registered model from MLflow."""
     try:
         model = mlflow.sklearn.load_model(f"runs:/{run_id}/{model_name}")
@@ -114,7 +114,7 @@ def main():
     
     # Load the best model from MLflow
     with mlflow.start_run(run_name="Inference_Run"):
-        model = load_model(model_name='best_model_GradientBoosting', run_id='0')
+        model = load_model(model_name='best_model_GradientBoosting', run_id='d7912c083a16407fbe6faf6084698758')
         
         # Make predictions
         predictions_df = make_predictions(model, X_scaled, customer_ids)

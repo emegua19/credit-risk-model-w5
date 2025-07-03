@@ -13,11 +13,11 @@ from sklearn.preprocessing import StandardScaler
 # Purpose: Create directories for models and results, and initialize MLflow tracking.
 def setup_environment():
     """Create directories and set up MLflow tracking."""
-    os.makedirs('models', exist_ok=True)
-    os.makedirs('results', exist_ok=True)
-    mlflow.set_tracking_uri("file:../mlruns")
+    os.makedirs(os.path.join(os.path.dirname(__file__), '../models'), exist_ok=True)
+    os.makedirs(os.path.join(os.path.dirname(__file__), '../results'), exist_ok=True)
+    mlflow.set_tracking_uri("file:" + os.path.abspath(os.path.join(os.path.dirname(__file__), '../mlruns')))
     mlflow.set_experiment("Credit_Risk_Model")
-    print("Setup complete. MLflow tracking set to ../mlruns, results to results/.")
+    print("Setup complete. MLflow tracking set to", mlflow.get_tracking_uri(), ", results to results/.")
 
 # Sub-task: Load the processed dataset
 # Purpose: Read the processed dataset with is_high_risk for model training.
