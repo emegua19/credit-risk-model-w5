@@ -1,6 +1,5 @@
-
 from pydantic import BaseModel, validator
-from typing import List
+
 
 class CustomerData(BaseModel):
     Recency: float
@@ -17,13 +16,26 @@ class CustomerData(BaseModel):
     Count_utility_bill: float
     AvgTransactionAmount: float
 
-    @validator('Recency', 'Frequency', 'Monetary', 'Count_airtime', 'Count_data_bundles', 
-                'Count_financial_services', 'Count_movies', 'Count_other', 'Count_ticket', 
-                'Count_transport', 'Count_tv', 'Count_utility_bill', 'AvgTransactionAmount')
+    @validator(
+        "Recency",
+        "Frequency",
+        "Monetary",
+        "Count_airtime",
+        "Count_data_bundles",
+        "Count_financial_services",
+        "Count_movies",
+        "Count_other",
+        "Count_ticket",
+        "Count_transport",
+        "Count_tv",
+        "Count_utility_bill",
+        "AvgTransactionAmount",
+    )
     def positive_values(cls, v):
         if v < 0:
             raise ValueError(f"{v} must be non-negative")
         return v
+
 
 class PredictionResponse(BaseModel):
     CustomerId: str
@@ -31,8 +43,5 @@ class PredictionResponse(BaseModel):
 
     class Config:
         json_schema_extra = {
-            "example": {
-                "CustomerId": "CustomerId_1",
-                "is_high_risk_prob": 0.95
-            }
+            "example": {"CustomerId": "CustomerId_1", "is_high_risk_prob": 0.95}
         }
